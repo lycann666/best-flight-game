@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garuda Courier — Nusantara Ring Run</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #1a2436; }
+  #game { display: block; }
+  /* Invisible click target for the HUD throttle bar (input.js reads its rect). */
+  #throttle-bar { position: fixed; right: 28px; bottom: 22px; width: 222px; height: 10px; z-index: 5; }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="throttle-bar" title="Click to set throttle"></div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
