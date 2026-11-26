@@ -10,11 +10,13 @@ import { buildDossier } from './vendor/makefun-game.ts';
 const here = dirname(fileURLToPath(import.meta.url));
 const out = resolve(process.env.MAKEFUN_OUTPUT_DIR || '/output');
 
-// Only clear the CONTENTS of the output dir — never remove the dir itself.
-// (In the grader the dir is pre-created and its parent is read-only, so
-// removing it would fail with EACCES.)
+// Create the output dir if missing, then clear only its CONTENTS.
+// Never remove the output dir itself: in the grader it is pre-created with
+// a read-only parent, so deleting it fails with EACCES and the run exits 1.
 mkdirSync(out, { recursive: true });
-for (const child of readdirSync(out)) rmSync(join(out, child), { recursive: true, force: true });
+for (const child of readdirSync(out)) {
+  rmSync(join(out, child), { recursive: true, force: true });
+}
 cpSync(join(here, 'game'), join(out, 'game'), { recursive: true });
 cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
 writeFileSync(
